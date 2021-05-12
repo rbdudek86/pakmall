@@ -61,27 +61,6 @@
 					</fieldset>
 				</form>
 				
-				
-				<form class="form-horizontal" id="updateForm2" name="updateForm2" action="/member/pw_update2" method="post" style="padding:100px">
-					<fieldset>
-
-						<!-- Form Name -->
-						<legend>비밀번호 변경</legend>
-
-
-						<input id="memb_id" name="memb_id" value="123456">
-
-						<!-- Button -->
-						<div class="form-group">
-							<div class="col-md">
-								<button id="btn_submit2" name="btn_submit2" class="btn btn-primary">수정</button>
-								<button id="btn_cancel2" name="btn_cancel2" class="btn btn-secondary">취소</button>
-							</div>
-							
-						</div>
-
-					</fieldset>
-				</form>
 			</div>
 		</div>
 	</div>

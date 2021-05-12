@@ -379,50 +379,77 @@ public class MemberController {
 		
 	}
 	
+//	@PostMapping("/pw_update")
+//	@ResponseBody
+//	public String updatePOST(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
+//
+//		System.out.println("비번변경 =========== " +vo.getMemb_pw() + vo.getMemb_pw1() + vo.getMemb_pw2());
+//		
+//		
+//		String memb_id = ((MemberVO) session.getAttribute("loginStatus")).getMemb_id();
+//		System.out.println("memb_id==========" + memb_id);
+//		
+//		
+//		String memb_pw = vo.getMemb_pw1();
+//		System.out.println("memb_pw==========" + memb_pw);
+//		
+////		String memb_pwck = vo.getMemb_pw2();
+////		System.out.println("memb_pwck==========" + memb_pwck);
+//		
+//		service.updatePOST(memb_id, memb_pw);
+//	
+//		//String result = "updateSuccess";
+//		
+//		//rttr.addFlashAttribute("status", result);
+//
+//		return "redirect:/";
+//		
+//	}
+	
+	
 	@PostMapping("/pw_update")
-	@ResponseBody
-	public String updatePOST(MemberVO vo, HttpSession session, RedirectAttributes rttr
-			, HttpServletRequest request
-			) throws Exception {
+	public String updatePOST(MemberVO vo, RedirectAttributes rttr, HttpSession session) throws Exception {
 
-		String a = request.getParameter("memb_pw");
-		System.out.println("a : " + a);
-		
-		System.out.println("비번변경 =========== " +vo.getMemb_pw() + vo.getMemb_pw1() + vo.getMemb_pw2());
-//		String result ="";
-//		//	    if(service.modifyPOST(vo) == true) {
-//		//      result = "modifySuccess";
-//		//  }else {
-//		//     result = "modifyFail";
-//		//  }
-//
-//		//로그인시 세션에서 아이디를 참고
-//		String mem_pw = ((MemberVO) session.getAttribute("loginStatus")).getMemb_pw();
-//		vo.setMemb_pw(mem_pw);
-//		
-//		
-//		
-//		//MemberVO vo에 회원수정폼에서 아이디 파라미터가 존재한 경우
-//		service.updatePOST(vo);
-//		result = "updateSuccess";
-//
-//		rttr.addFlashAttribute("status", result);
-//
+      String result ="";
+      
+      System.out.println("session에 있는걸 MemberVO에 담기 : " + ((MemberVO) session.getAttribute("loginStatus")));
+      
+      // 1. 세션에 담겨있는 password (암호화되어 있음)
+      String loginPassword = ((MemberVO) session.getAttribute("loginStatus")).getMemb_pw();
+      System.out.println("session에 있는 비밀번호 : " + ((MemberVO) session.getAttribute("loginStatus")).getMemb_pw());
+      
+      
+      // 2. 화면에서 가져온 password (원본)
+      String memb_pw = vo.getMemb_pw();
+      System.out.println("화면에서 가져온 기존비밀번호(원본) : " + memb_pw);
+      
+      // vo에서 받아온 비밀번호를 암호화 해서 다시 vo에 담기 
+      vo.setMemb_pw(cryPassEnc.encode(vo.getMemb_pw()));
+      
+      // session에 담겨있는 memb_id를 vo에 담
+      String mem_id = ((MemberVO) session.getAttribute("loginStatus")).getMemb_id();
+      vo.setMemb_id(mem_id);
+      
+      // 위에 사용한 match를 참고해보니,
+      // matches(기존비밀번호(원본),  세션에 담겨있는 비밀번호(암호화))
+      if(cryPassEnc.matches(memb_pw, loginPassword)){
+         System.out.println("일치함");
+         
+         // 여기에 신규 password update (일단 주석해놓음)
+	         service.updatePOST(vo);
+	         result = "updateSuccess";
+      } else {
+         System.out.println("불일치함");
+         
+      }
 
-		return "redirect:/";
+      vo.setMemb_pw(cryPassEnc.encode(memb_pw));
+	  //vo.setMemb_pw(memb_pw);
+      
+      rttr.addFlashAttribute("status", result);
 
-	}
-	
-	
-	@PostMapping("/pw_update2")
-	@ResponseBody
-	public String updatePOST2(MemberVO vo) throws Exception {
-		
-		System.out.println("member " + vo.getMemb_id());
-		
-		return null;
-	}
+      return "redirect:/";
 
-
+   }
 
 }
