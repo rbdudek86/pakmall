@@ -54,6 +54,7 @@ public class MemberController {
 	public void login_ok(LoginDTO dto, RedirectAttributes rttr, HttpSession session, Model model) throws Exception {
 
 		MemberVO vo = service.login_ok(dto);
+		System.out.println("LoginDTO에 담겨있는 정보 ======== " + vo);
 		
 		if(vo == null) return;
 
@@ -423,8 +424,6 @@ public class MemberController {
       String memb_pw = vo.getMemb_pw();
       System.out.println("화면에서 가져온 기존비밀번호(원본) : " + memb_pw);
       
-      // vo에서 받아온 비밀번호를 암호화 해서 다시 vo에 담기 
-      vo.setMemb_pw(cryPassEnc.encode(vo.getMemb_pw()));
       
       // session에 담겨있는 memb_id를 vo에 담
       String mem_id = ((MemberVO) session.getAttribute("loginStatus")).getMemb_id();
@@ -435,16 +434,19 @@ public class MemberController {
       if(cryPassEnc.matches(memb_pw, loginPassword)){
          System.out.println("일치함");
          
+         // vo에서 받아온 비밀번호를 암호화 해서 다시 vo에 담기 
+         vo.setMemb_pw(cryPassEnc.encode(vo.getMemb_pw1()));
+
+         
          // 여기에 신규 password update (일단 주석해놓음)
 	         service.updatePOST(vo);
+	        
+	         
 	         result = "updateSuccess";
       } else {
          System.out.println("불일치함");
          
       }
-
-      vo.setMemb_pw(cryPassEnc.encode(memb_pw));
-	  //vo.setMemb_pw(memb_pw);
       
       rttr.addFlashAttribute("status", result);
 
