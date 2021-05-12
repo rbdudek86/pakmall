@@ -21,6 +21,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class FileUploadUtils {
 
 	/*
+	 * by.2021.05.12 PULL 테스트
 	 * 파일 업로드
 	 * 
 	 * @Params
