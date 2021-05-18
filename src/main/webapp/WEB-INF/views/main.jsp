@@ -11,7 +11,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.80.0">
-<title>Study DocMall - Bootstrap v4.6</title>
+<title>PAK Mall</title>
 
 <%@include file="/WEB-INF/views/common/config.jsp"%>
 

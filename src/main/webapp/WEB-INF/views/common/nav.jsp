@@ -44,9 +44,11 @@
       <li class="nav-item">
         <a class="nav-link" href="/member/my_info">MyPage</a>
       </li>
+      
       <li class="nav-item">
-        <a class="nav-link" href="#">Order Info</a>
+        <a class="nav-link" href="/board/board_list">Board</a>
       </li>
+      
      
       <!-- 
       <li class="nav-item">

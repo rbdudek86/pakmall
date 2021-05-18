@@ -43,6 +43,7 @@ public interface MemberService {
 	// 비밀번호 찾기 (암호화 이메일)
 	public void pw_search(LoginDTO dto) throws Exception;
 	
+	
 	public int updatePOST(MemberVO vo) throws Exception;
 	
 	

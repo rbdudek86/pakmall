@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pakmall.domain.BoardVO;
 import com.pakmall.domain.MemberVO;
 import com.pakmall.dto.EmailDTO;
 import com.pakmall.dto.LoginDTO;
@@ -425,7 +427,7 @@ public class MemberController {
       System.out.println("화면에서 가져온 기존비밀번호(원본) : " + memb_pw);
       
       
-      // session에 담겨있는 memb_id를 vo에 담
+      // session에 담겨있는 memb_id를 vo에 담기
       String mem_id = ((MemberVO) session.getAttribute("loginStatus")).getMemb_id();
       vo.setMemb_id(mem_id);
       
@@ -453,5 +455,7 @@ public class MemberController {
       return "redirect:/";
 
    }
+	
+	
 
 }

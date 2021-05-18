@@ -19,6 +19,9 @@ public class Criteria {
 	private String type; 
 	private String keyword; // 검색어
 	
+	private String mem_id;
+	private	String memb_id;
+	
 	public Criteria() {
 		this(1, 3);
 	}

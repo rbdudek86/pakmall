@@ -3,7 +3,7 @@
 <!-- bootstrap -->
 <%@include file="/WEB-INF/views/common/config.jsp"%>
 
-<script src="/js/member/update.js"></script>
+
 
 <!--  nav.jsp -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
