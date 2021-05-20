@@ -236,6 +236,7 @@ public class MemberController {
 
 		String memb_id = ((MemberVO) session.getAttribute("loginStatus")).getMemb_id();
 
+		System.out.println("");
 		service.member_delete(memb_id);
 		session.invalidate();
 
@@ -436,7 +437,7 @@ public class MemberController {
       if(cryPassEnc.matches(memb_pw, loginPassword)){
          System.out.println("일치함");
          
-         // vo에서 받아온 비밀번호를 암호화 해서 다시 vo에 담기 
+         // 신규 비밀번호를 암호화 해서 다시 vo에 담기 
          vo.setMemb_pw(cryPassEnc.encode(vo.getMemb_pw1()));
 
          

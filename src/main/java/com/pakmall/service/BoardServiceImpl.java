@@ -22,4 +22,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.getBoardList(vo);
 	}
 
+	@Override
+	public int board_register(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return boardMapper.board_register(vo);
+	}
+
+	@Override
+	public BoardVO board_detail(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return boardMapper.board_detail(vo);
+	}
+
 }

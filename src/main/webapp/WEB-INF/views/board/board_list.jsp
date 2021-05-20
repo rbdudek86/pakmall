@@ -48,7 +48,7 @@
 		<div class="col-12">
 			<form action="/board/board_register" method="get" >
 				<div class="panel-heading text-right">
-					<button id="btn_cart_check_del" type="submit" class="btn btn-primary pull-right">글쓰기</button>
+					<button id="btn_board_register" type="submit" class="btn btn-primary pull-right">글쓰기</button>
 				</div>
 			</form>
 			<table class="table table-striped">
@@ -69,32 +69,34 @@
 				  	</tr>
 				  	</c:if>
 				  	<c:forEach items="${boardList}" var="boardList">
-					<tr>
+					<tr onclick="javascript:fn_detail('${boardList.bd_num}');">
 						<td>${boardList.bd_num}</td>
 						<td>${boardList.bd_title}</td>
 						<td>${boardList.bd_content}</td>
 						<td>${boardList.mem_id}</td>
-						<td>${boardList.bd_date_reg}</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${boardList.bd_date_reg}"/></td>
 					</tr>
 					</c:forEach>
 
 				</tbody>
 			</table>
 		</div>
-
-	
-	
-	
-	
-	
-	
-	
 	
 	</main>
 	<!-- /.container -->
 
-
 </body>
+<script>
+function fn_detail(bd_num) {
+	
+	
+	// 방법1
+	location.href = "/board/board_detail?bd_num=" + bd_num;
 
+	// 방법2
+	//location.href = "/board/board_detail2?bd_num=" + bd_num;
+
+}
+</script>
 
 </html>
