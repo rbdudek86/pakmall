@@ -14,4 +14,10 @@ public interface BoardService {
 	
 	// 게시글 디테일
 	public BoardVO board_detail(BoardVO vo) throws Exception;
+	
+	// 게시글 업데이트
+	public int board_update(BoardVO vo) throws Exception;
+	
+	// 게시글 삭제하기
+	public int board_delete(long bd_num) throws Exception;
 }

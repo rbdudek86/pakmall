@@ -26,7 +26,7 @@
 	<main role="main" class="container-fluid" style="position: relative; left:10px; top: 70px;">
 
 		<form style="padding:50px 30px">
-		<h3>상품문의</h3><br>
+		<h3>Board</h3><br>
 		  
 		  <input type="hidden" id="bd_num" name="bd_num" value="${detail.bd_num }"/>
 		
@@ -65,12 +65,12 @@
 		
 	    $("#btn_board_update").on("click", function(){
 	        
-	        var alert = confirm("수정	 하시겠습니까?");
+	        var alert = confirm("수정 하시겠습니까?");
 	
 	        $.ajax({
-	            url: '/board/board_register',
+	            url: '/board/board_update',
 	            type: 'POST',
-	            data: {bd_title : $("#bd_title").val(), bd_content : $("#bd_content").val()},
+	            data: {bd_num : $("#bd_num").val(), bd_title : $("#bd_title").val(), bd_content : $("#bd_content").val()},
 	            dataType : 'text',
 	            success : function(data) {
 	
@@ -85,6 +85,28 @@
 	
 	        });
 	    });
+	    
+	    $("#btn_board_delete").on("click", function(){
+			
+			var alert = confirm("정말 삭제 하시겠습니까?");
+			
+			$.ajax({
+				url: '/board/board_delete',
+				type: 'POST',
+				data: {bd_num : $("#bd_num").val()},
+				dataType: 'text',
+				success: function(data){
+					if(data == "SUCCESS"){
+	                   
+					   // 리스트 페이지 이동
+					   location.href = "/board/board_list";
+				   }else {
+					   alert("실패");
+				   }
+				}
+			});
+			
+		});
 	
 	});
 

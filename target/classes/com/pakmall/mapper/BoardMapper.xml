@@ -34,4 +34,16 @@
 		, SYSDATE)
 </insert>
 
+<update id="board_update" >
+	UPDATE BOARD_TBL
+    SET BD_TITLE = #{bd_title}
+        , BD_CONTENT = #{bd_content}
+	WHERE BD_NUM = #{bd_num}
+</update>
+
+<delete id="board_delete">
+	DELETE FROM board_tbl
+	WHERE BD_NUM = #{bd_num}
+</delete>
+
 </mapper>

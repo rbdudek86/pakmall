@@ -86,5 +86,42 @@ public class BoardController {
 		
 		return "/board/board_detail";
 	}
+	
+	// 게시글 수정
+	@PostMapping("/board_update")
+	public ResponseEntity<String> board_update(BoardVO vo) throws Exception {
+		
+		System.out.println("vo===========" + vo);
+		ResponseEntity<String> entity = null;
+		
+		int resultCnt = boardService.board_update(vo);
+		
+		// 성공하면 resultCnt = 1
+		if(resultCnt > 0) {
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}else {
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+		}
+		
+		return entity;
+	}
+	
+	// 게시글 삭제
+	@PostMapping("/board_delete")
+	public ResponseEntity<String> board_delete(long bd_num) throws Exception{
+		System.out.println("bd_num===========" + bd_num);
+		ResponseEntity<String> entity = null;
+		
+		int resultCnt = boardService.board_delete(bd_num);
+		
+		// 성공하면 resultCnt = 1
+		if(resultCnt > 0) {
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}else {
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+		}
+		
+		return entity;
+	}
 
 }
