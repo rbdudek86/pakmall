@@ -12,7 +12,7 @@ public interface BoardMapper {
 	public List<BoardVO> getBoardList(Criteria cri) throws Exception;
 	
 	// 페이징 처리 게시글 조회
-	public int getTotalCountList() throws Exception;
+	public int getTotalCountList(Criteria cri) throws Exception;
 	
 	public void board_register(BoardVO vo) throws Exception;
 	

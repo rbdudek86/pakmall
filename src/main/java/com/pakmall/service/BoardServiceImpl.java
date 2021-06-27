@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getTotalCountList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return boardMapper.getTotalCountList();
+		return boardMapper.getTotalCountList(cri);
 	}
 
 

@@ -92,7 +92,7 @@
 				  	</c:if>
 				  	<c:forEach items="${boardList}" var="list">
 					<tr onclick="javascript:fn_detail('${list.bd_num}');" style="cursor:pointer;">
-						<td style="text-align: center;"><c:out value="${list.bd_num}"></c:out></td>
+						<td style="text-align: center;"><c:out value="${total - (list.rn - 1)}"></c:out></td>
 						<td><c:out value="${list.bd_title}"></c:out></td>
 						<td style="text-align: center;"><c:out value="${list.mem_id}"></c:out></td>
 						<td style="text-align: center;"><fmt:formatDate pattern="yy/MM/dd" value="${list.bd_date_reg}"/></td>
@@ -175,39 +175,6 @@
 				<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword }" />'>
 			</form>
 		
-		<!-- 상품후기 모달대화상자 : 후기쓰기, 후기수정, 후기삭제 -->
-			<div class="modal fade" id="PWCheckModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="modalLabel"></h5>
-					
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			    <div class="modal-body">
-			      <!-- 비밀번호 확인 부분 -->
-				 <div class="form-group">
-				 <div>
-			        
-			        	<label></label><br>
-			        	<form id="PWCheckFrom">
-							<input type="hidden" class="form-control" name="bd_num" id="bd_num" value="">
-				        	<input style="width:400px" type="password" name="mem_pw" id="mem_pw">
-						</form>
-			        </div>
-			      </div>
-			      
-			      <div class="modal-footer">
-			        <button type="button" id="btnPWCheck" class="btn btn-primary btnModal">확인</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-	
-		</div>
-	
 	
 	</main>
 	<!-- /.container -->
@@ -225,34 +192,10 @@
 <script>
 function fn_detail(bd_num) {
 	
-	/* $("#modalLabel").html("비밀번호 확인");
-	
-	$("button.btnModal").hide();
-	$("#btnPWCheck").show();
-
-	$("#PWCheckModal").modal("show");
-	
-	$("#btnPWCheck").on("click", function(){
-		
-		var mem_pw_check = $("input[name='mem_pw_check']").val();
-		alert("mem_pw_check" + mem_pw_check);
-	
-		var mem_pw = $("input[name='mem_pw']").val();
-		alert("mem_pw" + mem_pw);
-		
-		if(mem_pw != mem_pw_check){
-			alert("비밀번호를 다시 입력해 주세요.");
-			mem_pw.focus();
 			
-		}else { */
+	// 방법2
+		location.href = "/board/board_detail2?bd_num=" + bd_num;
 			
-		// 방법2
-			location.href = "/board/board_detail2?bd_num=" + bd_num;
-			
-/* 		}
-		
-		
-	}); */
 	// 방법1
 	//location.href = "/board/board_detail?bd_num=" + bd_num;
 

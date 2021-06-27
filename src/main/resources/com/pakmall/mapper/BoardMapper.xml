@@ -8,14 +8,12 @@
 <![CDATA[	
 	SELECT  *
 	FROM (
-	    SELECT rownum rn, bd_num, bd_title, bd_content, mem_id, bd_date_reg
+	    SELECT /*+ index_desc(board_tbl pk_bd_num) */ rownum rn, bd_num, bd_title, bd_content, mem_id, bd_date_reg
 		    FROM BOARD_TBL
 		    WHERE bd_num > 0 and rownum > 0 and
 		    
 		    ]]> 
-	<!-- 
 	<include refid="criteria"></include>
-	 --> 	    
 		    
 		    
 	<![CDATA[
@@ -30,9 +28,7 @@
 <select id="getTotalCountList" resultType="int">
 	select count(*) from board_tbl where
 	
-	<!-- 
 	<include refid="criteria"></include>
-	 --> 
 	  
 	<![CDATA[ 
 	bd_num > 0
