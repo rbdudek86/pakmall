@@ -11,7 +11,7 @@
 <meta name="author"
 	content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.80.0">
-<title>Board</title>
+<title>Board Detail</title>
 
 <!-- css file -->
 <%@include file="/WEB-INF/views/common/config.jsp"%>
@@ -24,9 +24,9 @@
 	</div>
 	
 	<main role="main" class="container-fluid" style="position: relative; left:10px; top: 70px;">
-
 		<form style="padding:50px 30px">
-		<h3>Board</h3><br>
+		
+		<h3>No.${detail.bd_num }</h3>
 		  
 		  <input type="hidden" id="bd_num" name="bd_num" value="${detail.bd_num }"/>
 		
@@ -41,8 +41,14 @@
 		  </div>
 		  
 		  <div class="mb-3">
-		    <label for="exampleInputEmail1" class="form-label">ID</label>
+		    <label for="exampleInputEmail1" class="form-label">Writer</label>
 		    <input type="text" class="form-control" id="mem_id" name="mem_id" value="<c:out value="${detail.mem_id}"/>">
+		    
+		  </div>
+		  
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" class="form-label">Password</label>
+		    <input type="password" class="form-control" id="mem_pw" name="mem_pw" value="<c:out value="${detail.mem_pw}"/>">
 		    
 		  </div>
 		  

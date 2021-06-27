@@ -14,6 +14,8 @@ public class PageDTO {
 	private int endPage;
 	private boolean prev, next;
 	
+	private long id_num;
+	
 	private int total; // 테이블에 모든 데이터 개수
 	private Criteria cri; // 현재페이지번호, 게시물 출력개수
 	

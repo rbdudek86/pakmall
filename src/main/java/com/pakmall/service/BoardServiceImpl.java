@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pakmall.domain.BoardVO;
+import com.pakmall.domain.PagingVO;
+import com.pakmall.dto.Criteria;
 import com.pakmall.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -17,15 +19,15 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardVO> getBoardList(BoardVO vo) throws Exception {
+	public List<BoardVO> getBoardList(PagingVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		return boardMapper.getBoardList(vo);
 	}
 
 	@Override
-	public int board_register(BoardVO vo) throws Exception {
+	public void board_register(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return boardMapper.board_register(vo);
+		boardMapper.board_register(vo);
 	}
 
 	@Override
@@ -35,9 +37,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int board_update(BoardVO vo) throws Exception {
+	public void board_update(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		return boardMapper.board_update(vo);
+		boardMapper.board_update(vo);
 	}
 
 	@Override
@@ -45,5 +47,12 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardMapper.board_delete(bd_num);
 	}
+
+	@Override
+	public int getTotalCountList() throws Exception {
+		// TODO Auto-generated method stub
+		return boardMapper.getTotalCountList();
+	}
+
 
 }
