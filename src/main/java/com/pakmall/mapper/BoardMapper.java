@@ -9,7 +9,7 @@ import com.pakmall.dto.Criteria;
 public interface BoardMapper {
 
 	// 게시물 총 갯수
-	public List<BoardVO> getBoardList(PagingVO vo) throws Exception;
+	public List<BoardVO> getBoardList(Criteria cri) throws Exception;
 	
 	// 페이징 처리 게시글 조회
 	public int getTotalCountList() throws Exception;

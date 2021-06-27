@@ -19,9 +19,9 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<BoardVO> getBoardList(PagingVO vo) throws Exception {
+	public List<BoardVO> getBoardList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return boardMapper.getBoardList(vo);
+		return boardMapper.getBoardList(cri);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getTotalCountList() throws Exception {
+	public int getTotalCountList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return boardMapper.getTotalCountList();
 	}

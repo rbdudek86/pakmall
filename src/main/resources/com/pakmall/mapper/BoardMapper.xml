@@ -4,22 +4,27 @@
 
 <!-- 게시판 리스트 -->
 <select id="getBoardList" resultType="com.pakmall.domain.BoardVO" >
-	<![CDATA[ 
-	SELECT *
-		FROM (
-		   		 SELECT ROWNUM RN, A.*
-			    						FROM (
-			    								SELECT *
-			    								FROM BOARD_TBL
-			    								ORDER BY BD_NUM DESC
-			    								) A
-			   ) 
-	WHERE RN BETWEEN #{start) AND #{end}
-	]]>   
+
+<![CDATA[	
+	SELECT  *
+	FROM (
+	    SELECT rownum rn, bd_num, bd_title, bd_content, mem_id, bd_date_reg
+		    FROM BOARD_TBL
+		    WHERE bd_num > 0 and rownum > 0 and
+		    
+		    ]]> 
 	<!-- 
 	<include refid="criteria"></include>
-	 -->
-
+	 --> 	    
+		    
+		    
+	<![CDATA[
+	        rownum <= #{pageNum} * #{amount}
+	        
+	    )
+	    
+	    where rn  > (#{pageNum}-1) * #{amount}
+	]]>    
 </select>
 
 <select id="getTotalCountList" resultType="int">
@@ -27,10 +32,10 @@
 	
 	<!-- 
 	<include refid="criteria"></include>
-	 -->
-	 
+	 --> 
+	  
 	<![CDATA[ 
-	BD_NUM > 0
+	bd_num > 0
 	]]>
 	
 </select>

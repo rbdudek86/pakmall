@@ -28,7 +28,8 @@
 		
 		<h3>No.${bd_num }</h3>
 		  
-		  <input type="hidden" id="bd_num" name="bd_num" value="${bd_num }"/>
+		  <input type="text" id="bd_num" name="bd_num" value="${bd_num }"/>
+		  <input type="text" id="mem_pw" name="mem_pw" value="${mem_pw }"/>
 		
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Title</label>

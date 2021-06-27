@@ -9,10 +9,10 @@ import com.pakmall.dto.Criteria;
 public interface BoardService {
 
 	// 페이징 처리 게시글 조회
-	public List<BoardVO> getBoardList(PagingVO vo) throws Exception;
+	public List<BoardVO> getBoardList(Criteria cri) throws Exception;
 	
 	// 게시물 총 갯수
-	public int getTotalCountList() throws Exception;
+	public int getTotalCountList(Criteria cri) throws Exception;
 	
 	// 게시글 등록
 	public void board_register(BoardVO vo) throws Exception;

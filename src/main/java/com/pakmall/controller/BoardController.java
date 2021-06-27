@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,27 +37,16 @@ public class BoardController {
 	
 	
 	// 게시판 리스트
-	@GetMapping("/board_list")
-	public String board_list(PagingVO vo, Model model
-			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
-		
-		int total = boardService.getTotalCountList();
-		
-		if(nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1"; 
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
-		}
-		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", vo);
-		model.addAttribute("ViewAll", boardService.getBoardList(vo));
-		
-		return "/board/board_list";
-    }
+	@RequestMapping(value = "/board_list",method = {RequestMethod.GET, RequestMethod.POST})
+	public void board_list (@ModelAttribute("cri") Criteria cri, Model model) throws Exception{
+	    
+		model.addAttribute("boardList", boardService.getBoardList(cri));
+	    
+	    int total = boardService.getTotalCountList(cri);
+	    model.addAttribute("total", total);
+	    model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+	}
 	
 	// 게시글 등록 페이지
 	@GetMapping("/board_register")

@@ -45,7 +45,7 @@
 	<%@include file="/WEB-INF/views/common/nav.jsp"%>	
 	</div>
 	<main role="main" class="container-fluid" style="position: relative; left:10px; top: 100px;">
-		<!-- 
+		<!-- 검색 -->
 		<div class="row" >
 			<div class="col-lg-12">
 				<form id="searchForm" action="/board/board_list" method="get">
@@ -62,12 +62,12 @@
 					<input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum}">
 					<input type="hidden" name="amount" value="${ pageMaker.cri.amount}">
 					<button style="height:38px;" id="btnSearch" type="button" class="btn btn-primary">검색</button>
-					<!-- Criteria로 보냄 
+					<!-- Criteria로 보냄 -->
 					
 				</form>
 			</div>
 		</div>
-		-->
+		
 		<div class="col-12">
 			<form action="/board/board_register" method="get" >
 				<div class="panel-heading text-right">
@@ -85,18 +85,17 @@
 				</thead>
 				<tbody>
 					<%-- 데이터가 존재하지 않는 경우 --%>
-					<c:if test="${empty viewAll }">
+					<c:if test="${empty boardList }">
 				  	<tr>
 				  		<td colspan="5"><p style="color:red;">데이터가 없습니다.</p></td>
 				  	</tr>
 				  	</c:if>
-				  	<c:forEach items="${viewAll}" var="list">
+				  	<c:forEach items="${boardList}" var="list">
 					<tr onclick="javascript:fn_detail('${list.bd_num}');" style="cursor:pointer;">
 						<td style="text-align: center;"><c:out value="${list.bd_num}"></c:out></td>
 						<td><c:out value="${list.bd_title}"></c:out></td>
 						<td style="text-align: center;"><c:out value="${list.mem_id}"></c:out></td>
 						<td style="text-align: center;"><fmt:formatDate pattern="yy/MM/dd" value="${list.bd_date_reg}"/></td>
-						<input type="hidden" name="mem_pw_check" value="${list.mem_pw }">
 					</tr>
 					</c:forEach>
 
@@ -104,6 +103,8 @@
 			</table>
 		</div>
 		
+		
+		<!-- 페이징 소스 2
 		<div style="float: right;">
 			<select id="cntPerPage" name="sel" onchange="selChange()">
 				<option value="5"
@@ -115,7 +116,9 @@
 				<option value="20"
 					<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
 			</select>
-		</div> <!-- 옵션선택 끝 -->
+		</div> 
+		
+		<!-- 옵션선택 끝
 		
 		<div style="display: block; text-align: center;">		
 			<c:if test="${paging.startPage != 1 }">
@@ -135,10 +138,11 @@
 				<a href="/board/board_list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 			</c:if>
 		</div>
-		 <!-- 페이징 표시 
+		-->
+		
+		 <!-- 페이징 표시 -->
 		    <div class="row">
 		    	<div class="col-lg-12">
-		    	<!-- 페이징 표시 
 		    			<div class="panel-footer">
 		    			   <ul class="pagination">
 		    			   <c:if test="${pageMaker.prev }">
@@ -162,15 +166,15 @@
 	    			</div>
 		    	</div>
 		    </div>
-		-->     
-	    <!-- 페이지번호클릭시, 수정클릭시, 삭제클릭시 상품코드정보 추가 
+		     
+	    <!-- 페이지번호클릭시, 수정클릭시, 삭제클릭시 상품코드정보 추가 -->
 		    <form id="actionForm" action="/board/board_list" method="get">
 				<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }" />'>
 				<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount }" />'>
 				<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type }" />'>
 				<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword }" />'>
 			</form>
-		-->
+		
 		<!-- 상품후기 모달대화상자 : 후기쓰기, 후기수정, 후기삭제 -->
 			<div class="modal fade" id="PWCheckModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -210,10 +214,12 @@
 
 </body>
 <script>
+	<!-- 페이징 2
 	function selChange(){
 		var sel = document.getElementById('cntPerPage').value;
 		location.href="/board/board_list?nowPage=${paging.nowPage}&cntPerPage="+sel;
 	}
+	-->
 </script>
 
 <script>
