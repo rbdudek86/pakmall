@@ -26,10 +26,9 @@
 	<main role="main" class="container-fluid" style="position: relative; left:10px; top: 70px;">
 		<form style="padding:50px 30px" id="boardUpdateFrom" method="post" action="/board/board_update">
 		
-		<h3>No.${bd_num }</h3>
 		  
-		  <input type="text" id="bd_num" name="bd_num" value="${bd_num }"/>
-		  <input type="text" id="mem_pw" name="mem_pw" value="${mem_pw }"/>
+		  <input type="hidden" id="bd_num" name="bd_num" value="${bd_num }"/>
+		  <input type="hidden" id="mem_pw" name="mem_pw" value="${mem_pw }"/>
 		
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Title</label>
@@ -44,6 +43,12 @@
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Writer</label>
 		    <input type="text" class="form-control" id="mem_id" name="mem_id" onkeyup="chkword(this, 10)">
+		    
+		  </div>
+		  
+		 <div class="mb-3">
+		    <label for="exampleInputEmail1" class="form-label">Password</label>
+		    <input type="password" class="form-control" id="mem_pw_ck" name="mem_pw_ck" placeholder="비밀번호입력" onkeyup="chkword(this, 13)">
 		    
 		  </div>
 		  
@@ -112,36 +117,34 @@
 				var bd_title = $("#bd_title");
 				var bd_content = $("#bd_content");
 				var mem_id = $("#mem_id");
+				var mem_pw = $("#mem_pw");
+				var mem_pw_ck = $("#mem_pw_ck");
 				
-				
-				if(bd_title.val()==null || bd_title.val()==""){
+				if(bd_title.val()==null || $.trim(bd_title.val()) == ""){
 					alert("제목 입력하세요.");
 					bd_title.focus();
 					
-				} else if($.trim(bd_title.val()) == ""){
-					alert("제목 입력하세요.");
-					bd_title.focus();
+				} else if(bd_content.val()==null || $.trim(bd_content.val()) == ""){
+					alert("내용을 입력하세요.");
+					bd_content.focus();
 					
-				} else if(bd_content.val()==null || bd_content.val()==""){
-					alert("내용을 입력하세요.");
-					bd_content.focus();
-				
-				} else if($.trim(bd_content.val()) == ""){
-					alert("내용을 입력하세요.");
-					bd_content.focus();
-				
-				} else if(mem_id.val()==null || mem_id.val()==""){
+				} else if(mem_id.val()==null || $.trim(mem_id.val()) == ""){
 					alert("작성자를 입력하세요.");
 					mem_id.focus();
+					
+				} else if(mem_pw_ck.val()==null || $.trim(mem_pw_ck.val()) == ""){
+					alert("비밀번호를 입력하세요.");
+					mem_pw_ck.focus();
 				
-				} else if($.trim(mem_id.val()) == ""){
-					alert("작성자를 입력하세요.");
-					mem_id.focus();
+				} else if(mem_pw.val() != mem_pw_ck.val()){
+					alert("비밀번호가 틀립니다.");
+					mem_pw_ck.focus();
 
 				} else {
 					var bd_title = $.trim(bd_title);
 					var bd_content = $.trim(bd_content);
 					var mem_id = $.trim(mem_id);
+					var mem_pw_ck = $.trim(mem_pw_ck);
 					
 					form.submit();
 				}
@@ -156,30 +159,41 @@
 			
 			var result = confirm("정말 삭제 하시겠습니까?");
 			
+			
+			
 			if(result){
+				var mem_pw = $("#mem_pw");
+				var mem_pw_ck = $("#mem_pw_ck");
 				
-				$.ajax({
-					url: '/board/board_delete',
-					type: 'POST',
-					data: {bd_num : $("#bd_num").val()},
-					dataType: 'text',
-					success: function(data){
-						if(data == "SUCCESS"){
-		                   
-						   // 리스트 페이지 이동
-						   location.href = "/board/board_list";
-					   }else {
-						   alert("실패");
-					   }
-					}
-				});
+				if(mem_pw_ck.val()==null || $.trim(mem_pw_ck.val()) == ""){
+					alert("비밀번호를 입력하세요.");
+					mem_pw_ck.focus();
 				
-			}else{
-				false;
-			}
-			
-			
-			
+				}else if(mem_pw.val() != mem_pw_ck.val()){
+						alert("비밀번호가 틀립니다.");
+						mem_pw_ck.focus();
+				
+				}else {
+					var mem_pw_ck = $.trim(mem_pw_ck);
+					
+					$.ajax({
+						url: '/board/board_delete',
+						type: 'POST',
+						data: {bd_num : $("#bd_num").val()},
+						dataType: 'text',
+						success: function(data){
+							if(data == "SUCCESS"){
+			                   
+							   // 리스트 페이지 이동
+							   location.href = "/board/board_list";
+						   }else {
+							   alert("실패");
+						   }
+						}
+					});
+					
+				}
+			}	
 		});
 	
 	});

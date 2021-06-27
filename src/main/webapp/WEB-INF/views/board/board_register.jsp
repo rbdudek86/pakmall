@@ -107,35 +107,19 @@
 			var mem_pw = $("#mem_pw");
 			
 			
-			if(bd_title.val()==null || bd_title.val()==""){
+			if(bd_title.val()==null || $.trim(bd_title.val()) == ""){
 				alert("제목 입력하세요.");
 				bd_title.focus();
 				
-			} else if($.trim(bd_title.val()) == ""){
-				alert("제목 입력하세요.");
-				bd_title.focus();
+			} else if(bd_content.val()==null || $.trim(bd_content.val()) == ""){
+				alert("내용을 입력하세요.");
+				bd_content.focus();
 				
-			} else if(bd_content.val()==null || bd_content.val()==""){
-				alert("내용을 입력하세요.");
-				bd_content.focus();
-			
-			} else if($.trim(bd_content.val()) == ""){
-				alert("내용을 입력하세요.");
-				bd_content.focus();
-			
-			} else if(mem_id.val()==null || mem_id.val()==""){
-				alert("작성자를 입력하세요.");
-				mem_id.focus();
-			
-			} else if($.trim(mem_id.val()) == ""){
+			} else if(mem_id.val()==null || $.trim(mem_id.val()) == ""){
 				alert("작성자를 입력하세요.");
 				mem_id.focus();
 				
-			} else if(mem_pw.val()==null || mem_pw.val()==""){
-				alert("비밀번호를 입력하세요.");
-				mem_pw.focus();
-				
-			} else if($.trim(mem_pw.val()) == ""){
+			} else if(mem_pw.val()==null || $.trim(mem_pw.val()) == ""){
 				alert("비밀번호를 입력하세요.");
 				mem_pw.focus();
 

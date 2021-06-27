@@ -82,6 +82,7 @@ public class BoardController {
 	@GetMapping("/board_detail2")
 	public String board_detail2(BoardVO vo, Model model) throws Exception {
 		
+		
 		model.addAttribute("bd_num", vo.getBd_num());
 		
 		System.out.println("vo.getBd_num()=========" + vo.getBd_num());
