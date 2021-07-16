@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pakmall.mapper.Replymapper">
+<insert id="reply_insert">
+	INSERT INTO BOARD_RE_TBL(BD_RNO, BD_NUM, BD_REPLY, BD_REPLYER, BD_REPLY_PW)
+	VALUES (
+		  SEQ_BOARD_RE_TBL.NEXTVAL
+		, #{bd_num} 
+		, #{bd_reply}
+		, #{bd_replyer}
+		, #{bd_reply_pw}
+		)
+</insert>
+
+<delete id="reply_delete">
+	DELETE FROM BOARD_RE_TBL
+	WHERE BD_RNO = #{bd_rno}
+</delete>
+
+<update id="reply_update">
+	UPDATE BOARD_RE_TBL
+    SET BD_REPLY = #{bd_reply}
+        , BD_REPLYER = #{bd_replyer}
+	WHERE BD_RNO = #{bd_rno}
+</update>
+
+<select id="reply_getList" resultType="com.pakmall.domain.ReplyVO">
+SELECT *
+	FROM
+	(	SELECT ROWNUM rn, a.*
+		FROM
+		(
+			SELECT BD_RNO, BD_NUM, BD_REPLY, BD_REPLYER, BD_DATE_REPLY, BD_REPLY_PW 
+            FROM BOARD_RE_TBL       
+			ORDER BY BD_RNO DESC
+		) a
+		WHERE BD_NUM = #{bd_num} AND
+		<![CDATA[ 
+		ROWNUM <= #{pageNum} * #{amount}
+	) A
+WHERE A.rn > (#{pageNum} - 1) * #{amount}
+]]>
+</select>
+
+<select id="getTotalCountList" resultType="int">
+	select count(*) from board_re_tbl 
+	where bd_num = #{bd_num}
+	and bd_rno > 0
+</select>
+
+<insert id="reply_register">
+	INSERT INTO BOARD_TBL(BD_NUM, BD_TITLE, BD_CONTENT, MEM_ID, MEM_PW, BD_DATE_REG, BD_PARENT, BD_REF, BD_LAYER, BD_SHOW)
+	VALUES (
+		  SEQ_BOARD_TBL.NEXTVAL
+		, #{bd_title}
+		, #{bd_content}
+		, #{mem_id}
+		, #{mem_pw}
+		, SYSDATE
+		, #{bd_parent}
+		, #{bd_ref} + 1
+		, #{bd_layer} + 1
+		, 'y')
+</insert>
+
+<update id="update_bd_ref">
+	UPDATE BOARD_TBL
+	SET BD_REF = BD_REF + 1
+	WHERE BD_PARENT = #{bd_parent}
+	AND BD_REF > #{bd_ref}
+	
+</update>
+	
+</mapper>

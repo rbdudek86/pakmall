@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pakmall.mapper.LottoMapper">
+<insert id="lotto_insert">
+	INSERT INTO TB_LOTTO (seq, num1, num2, num3, num4, num5, num6, b_num)
+    VALUES (#{seq}, #{num1}, #{num2}, #{num3}, #{num4}, #{num5}, #{num6}, #{b_num})
+</insert>
+
+<select id="lotto_list" resultType="com.pakmall.domain.LottoVO">
+	<![CDATA[
+	select Seq, Num1, Num2, Num3, Num4, Num5, Num6, B_Num, Reg_Date
+	from (
+	    select /*+ index_desc(tb_lotto pk_lt_seq) */ rownum rn, Seq, Num1, Num2, Num3, Num4, Num5, Num6, B_Num, Reg_Date
+	    from tb_lotto
+	    where seq > 0 and rownum > 0 and rownum <= #{pageNum} * #{amount}
+	    )
+	where rn > (#{pageNum} - 1) * #{amount}
+	]]>
+	</select>
+	
+
+	<select id="lotto_detail" resultType="com.pakmall.domain.LottoVO">
+		SELECT seq, num1, num2, num3, num4, num5, num6, b_num, reg_date 
+	    	FROM TB_LOTTO
+	    	WHERE seq = #{seq}
+	</select>
+	
+	<delete id="lotto_del">
+		DELETE FROM TB_LOTTO
+	    WHERE seq = #{seq}
+	</delete>
+		
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tb_lotto
+		<![CDATA[
+		where seq > 0
+		]]>
+	</select>
+
+
+</mapper>

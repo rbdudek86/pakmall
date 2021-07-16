@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pakmall.mapper.Board2Mapper">
+	<insert id="board2_insert">
+		INSERT INTO board_tbl2(BD_NUM2, BD_TITLE2, BD_CONTENT2, BD_WRITER, BD_DATE_REG)
+    	VALUES (
+	    	SEQ_BOARD_TBL2.nextval
+	    	, #{bd_title2}
+	    	, #{bd_content2}
+	    	, #{bd_writer} 
+	    	, SYSDATE
+	    	)
+	</insert>
+	
+	<select id="getBoardList" resultType="com.pakmall.dto.Board2DTO">
+		SELECT BD_NUM2
+			, BD_TITLE2
+			, BD_CONTENT2
+			, BD_WRITER
+			, BD_DATE_REG 
+		FROM BOARD_TBL2
+		ORDER BY BD_NUM2 DESC
+	</select>
+</mapper>
