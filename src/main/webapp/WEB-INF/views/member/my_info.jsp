@@ -39,14 +39,13 @@
       }
     </style>
 
-</head>
-<body>
-	
-	<div style="position: relative;">	
 	<!-- nav.jsp -->
 	<%@include file="/WEB-INF/views/common/nav.jsp"%>	
-	</div>	
-	<main role="main" class="container-fluid" style="position: relative; left:10px; top: 70px;">
+
+</head>
+<body>
+		
+	<main role="main" class="container-fluid" >
 		
 		<div class="row">
 			
@@ -60,7 +59,8 @@
 			      <a class="dropdown-item" href="/member/modify">회원정보 수정</a>
 			      <a class="dropdown-item" href="/member/pw_update">비밀번호 변경</a>
 			      <div class="dropdown-divider"></div>
-			      <a class="dropdown-item" href="/member/delete">회원 탈퇴</a>
+			     <!-- <a class="dropdown-item" href="/member/delete">회원 탈퇴</a>  -->
+			      <button type="button" id="btn_member_delete" class="dropdown-item">회원탈퇴</button>
 			    </div>
 			  </li>
 			  <li class="nav-item dropdown">
@@ -95,4 +95,22 @@
 
 
 </body>
+
+<script>
+$(document).ready(function(){
+	$("#btn_member_delete").on("click",function(){
+
+		var result = confirm("정말 탈퇴하시겠습니까?");
+		
+		if(result){
+			location.href="/member/delete";
+		}else{
+			location.href="/"
+		}
+		
+	});
+		
+	
+});
+</script>
 </html>

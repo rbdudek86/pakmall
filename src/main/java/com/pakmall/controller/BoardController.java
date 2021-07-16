@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pakmall.domain.BoardVO;
-import com.pakmall.domain.PagingVO;
+import com.pakmall.domain.ReplyVO;
 import com.pakmall.dto.Criteria;
 import com.pakmall.dto.PageDTO;
 import com.pakmall.service.BoardService;
+import com.pakmall.service.ReplyService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -35,18 +36,33 @@ public class BoardController {
 	@Setter(onMethod_ = @Autowired)
 	private BoardService boardService;
 	
+	@Setter(onMethod_ = @Autowired)
+	private ReplyService replyService;
+	
 	
 	// 게시판 리스트
 	@RequestMapping(value = "/board_list",method = {RequestMethod.GET, RequestMethod.POST})
-	public void board_list (@ModelAttribute("cri") Criteria cri, Model model) throws Exception{
+	public void board_list (@ModelAttribute("cri") Criteria cri, Model model, BoardVO vo) throws Exception{
 	    
-		model.addAttribute("boardList", boardService.getBoardList(cri));
+		List<BoardVO> boardList = boardService.getBoardList(cri);
+		
+		System.out.println(boardList);
+		model.addAttribute("boardList", boardList);
 	    
 	    int total = boardService.getTotalCountList(cri);
+	    
+	    System.out.println("total=============" + total);
 	    model.addAttribute("total", total);
 	    model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}
+	
+	// 게시판 리스트2 폼
+	@GetMapping("/board_list2")
+	public void board_list2() {
+		
+	}
+	
 	
 	// 게시글 등록 페이지
 	@GetMapping("/board_register")
@@ -61,6 +77,7 @@ public class BoardController {
 		
 		
 		boardService.board_register(vo);
+		
 		
 		return "redirect:/board/board_list";
 	}
@@ -80,12 +97,31 @@ public class BoardController {
 	
 	// 게시글 상세 ajax
 	@GetMapping("/board_detail2")
-	public String board_detail2(BoardVO vo, Model model) throws Exception {
+	public String board_detail2(@ModelAttribute("cri") Criteria cri, @RequestParam("bd_num")long bd_num, BoardVO board, ReplyVO vo, Model model) throws Exception {
 		
 		
-		model.addAttribute("bd_num", vo.getBd_num());
+		model.addAttribute("bd_num", board.getBd_num());
 		
-		System.out.println("vo.getBd_num()=========" + vo.getBd_num());
+		System.out.println("vo.getBd_num()=========" + board.getBd_num());
+		
+		int total = replyService.getTotalCountList(bd_num);
+		
+		System.out.println("total===========" + total);
+		
+		cri.setBd_num(board.getBd_num());
+		
+		System.out.println("cri.setBd_num==========" + cri.getBd_num());
+		System.out.println("#{pageNum}=====" + cri.getPageNum());
+		System.out.println("#{amount}==========" + cri.getAmount());
+		
+		// 댓글리스트
+		List<ReplyVO> replyList = replyService.reply_getList(cri);
+		
+		System.out.println("댓글리스트===========" + replyList);
+		
+		model.addAttribute("replyList", replyList);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		return "/board/board_detail2";
 	}
@@ -141,6 +177,9 @@ public class BoardController {
 		
 		return entity;
 	}
+	
+	
+	
 	
 
 }

@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<ul style= "list-style: none" >
+<nav class="navbar navbar-light bg-light">
+<ul class="navbar-nav" style= "list-style:none" >
 	<!-- 1차카테고리 출력 -->
 	<c:forEach items="${mainCateList}" var="cateVO">
-		<li class="nav-item mainCategory">
+		<li class="nav-item text-light mainCategory">
 		<a class="nav-link" href="#" data-code="${cateVO.cg_code }">${cateVO.cg_name }</a>
 			 
 		<!-- 1차카테고리 선택에 의한 2차카테고리 출력위치 -->
-		<ul class="subCategory"></ul>
+		<ul class="navbar-nav subCategory"></ul>
 		</li>
 	</c:forEach>
 </ul>
+</nav>
 
 <!-- 핸들바 사용 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>

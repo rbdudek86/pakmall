@@ -120,23 +120,6 @@
 		}
 </script>
 
-<script>
-    var message = '${status}';
-
-    if(message == 'loginSuccess'){
-        alert('로그인이 되었습니다.');
-    }else if(message == 'loginIDFail'){
-        alert('아이디가 틀립니다.');
-    }else if(message == 'loginPWFail'){
-        alert('비밀번호가 틀립니다.');
-    }else if(message == 'logout'){
-        alert('로그아웃 되었습니다.');
-    }else if(message == 'modifySuccess'){
-        alert('회원 수정이 되었습니다.');
-    }else if(message == 'regdelete'){
-        alert('회원삭제가 되었습니다.');
-    }
-	</script>
 <meta name="theme-color" content="#563d7c">
 
 <style>

@@ -70,12 +70,12 @@ desired effect
 					<form id="searchForm" action="/admin/order/order_list" method="get">
 						<select name="type" id="type">
 							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected':'' }" />>--</option>
-							<option value="N" <c:out value="${pageMaker.cri.type == 'N' ? 'selected':'' }" />>상품명</option>
-							<option value="D" <c:out value="${pageMaker.cri.type == 'D' ? 'selected':'' }" />>상품설명</option>
-							<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected':'' }" />>상품회사</option>
-							<option value="ND" <c:out value="${pageMaker.cri.type == 'ND' ? 'selected':'' }" />>상품명 or 상품설명</option>
-							<option value="NC" <c:out value="${pageMaker.cri.type == 'NC' ? 'selected':'' }" />>상품명 or 상품회사</option>
-							<option value="NDC" <c:out value="${pageMaker.cri.type == 'NDC' ? 'selected':'' }" />>상품명 or 내용 or 상품회사</option>
+							<option value="N" <c:out value="${pageMaker.cri.type == 'N' ? 'selected':'' }" />>주문번호</option>
+							<option value="D" <c:out value="${pageMaker.cri.type == 'D' ? 'selected':'' }" />>ID</option>
+							<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected':'' }" />>받는분</option>
+							<option value="ND" <c:out value="${pageMaker.cri.type == 'ND' ? 'selected':'' }" />>주문번호 or ID</option>
+							<option value="NC" <c:out value="${pageMaker.cri.type == 'NC' ? 'selected':'' }" />>주문번호 or 주문자</option>
+							<option value="NDC" <c:out value="${pageMaker.cri.type == 'NDC' ? 'selected':'' }" />>상품명 or ID or 주문자</option>
 						</select>
 						<input type="text" name="keyword" value="${ pageMaker.cri.keyword}">
 						<input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum}">

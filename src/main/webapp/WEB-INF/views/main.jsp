@@ -24,14 +24,16 @@
         alert('아이디가 틀립니다.');
     }else if(message == 'loginPWFail'){
         alert('비밀번호가 틀립니다.');
+    }else if(message == 'loginFail'){
+    	alert('로그인 실패.');
     }else if(message == 'logout'){
         alert('로그아웃 되었습니다.');
     }else if(message == 'modifySuccess'){
-        alert('회원 수정이 되었습니다.');
+        alert('회원정보가 수정 되었습니다.');
     }else if(message == 'regdelete'){
         alert('회원삭제가 되었습니다.');
     }
-	</script>
+</script>
 
 <meta name="theme-color" content="#563d7c">
 
@@ -45,7 +47,7 @@
 	user-select: none;
 }
 
-@media ( min-width : 768px) {
+@media ( min-width : 435px) {
 	.bd-placeholder-img-lg {
 		font-size: 3.5rem;
 	}
@@ -53,18 +55,13 @@
 
 </style>
 
-
-
+	<!-- nav.jsp -->
+	<%@include file="/WEB-INF/views/common/nav.jsp"%>
 
 </head>
 <body>
 
-	<!-- nav.jsp -->
-	<%@include file="/WEB-INF/views/common/nav.jsp"%>
-	
-	
-
-	<main role="main" class="container-fluid">
+	<main role="main">
 	<!-- 카테고리 목록 -->
 		<div class="row">
 			<div class="col-2">
@@ -82,15 +79,15 @@
 				    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
 				    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
 				  </ol>
-				  <div class="carousel-inner">
+				  <div class="carousel-inner" style="height: 500px;">
 				    <div class="carousel-item active">
-				      <img src="/resources/img/shirt_01.jpg" class="d-block w-100" alt="...">
+				      <img src="/resources/img/main_01.jpg" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="/resources/img/shirt_03.jpg" class="d-block w-100" alt="...">
+				      <img src="/resources/img/main_02.jpg" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="/resources/img/shirt_04.jpg" class="d-block w-100" alt="...">
+				      <img src="/resources/img/main_03.jpg" class="d-block w-100" alt="...">
 				    </div>
 				  </div>
 				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

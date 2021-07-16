@@ -6,22 +6,28 @@
 <select id="getBoardList" resultType="com.pakmall.domain.BoardVO" >
 
 <![CDATA[	
-	SELECT  *
-	FROM (
-	    SELECT /*+ index_desc(board_tbl pk_bd_num) */ rownum rn, bd_num, bd_title, bd_content, mem_id, bd_date_reg
-		    FROM BOARD_TBL
-		    WHERE bd_num > 0 and rownum > 0 and
-		    
-		    ]]> 
+SELECT *
+	FROM
+	(	SELECT ROWNUM rn, a.*
+		FROM
+		(
+			SELECT bd_num, bd_title, bd_content, mem_id, bd_date_reg, mem_pw, bd_parent, bd_ref, bd_layer, bd_show, 
+                    (SELECT COUNT(*) FROM BOARD_RE_TBL WHERE bd_num =b.bd_num) AS bd_re_count
+                    FROM BOARD_TBL b
+			ORDER BY bd_parent DESC, bd_ref ASC
+		) a
+		WHERE 
+		
+		]]> 
 	<include refid="criteria"></include>
 		    
 		    
 	<![CDATA[
-	        rownum <= #{pageNum} * #{amount}
-	        
-	    )
-	    
-	    where rn  > (#{pageNum}-1) * #{amount}
+		
+		ROWNUM <= #{pageNum} * #{amount}
+	) A
+WHERE A.rn > (#{pageNum}-1) * #{amount} 
+
 	]]>    
 </select>
 
@@ -44,6 +50,10 @@
 			, mem_id
 			, mem_pw
 			, bd_date_reg
+			, bd_parent
+			, bd_ref
+			, bd_layer
+			, bd_show
 	    FROM BOARD_TBL
 	    WHERE bd_num = #{bd_num}
 </select>
@@ -72,26 +82,37 @@
 
 <!-- 게시글 쓰기 -->
 <insert id="board_register" >
-	INSERT INTO BOARD_TBL(BD_NUM, BD_TITLE, BD_CONTENT, MEM_ID, MEM_PW, BD_DATE_REG)
+	INSERT INTO BOARD_TBL(BD_NUM, BD_TITLE, BD_CONTENT, MEM_ID, MEM_PW, BD_DATE_REG, BD_PARENT ,BD_REF, BD_LAYER, BD_SHOW)
 	VALUES (
 		  SEQ_BOARD_TBL.NEXTVAL
 		, #{bd_title}
 		, #{bd_content}
 		, #{mem_id}
 		, #{mem_pw}
-		, SYSDATE)
+		, SYSDATE
+		, SEQ_BOARD_TBL.NEXTVAL
+		, 0
+		, 0
+		, 'y')
 </insert>
 
 <update id="board_update" >
 	UPDATE BOARD_TBL
     SET BD_TITLE = #{bd_title}
         , BD_CONTENT = #{bd_content}
+        , MEM_ID = #{mem_id}
 	WHERE BD_NUM = #{bd_num}
 </update>
 
+<update id="board_delete">
+	UPDATE board_tbl
+	SET bd_show = 'n'
+	WHERE BD_NUM = #{bd_num}
+</update>
+<!-- 
 <delete id="board_delete">
 	DELETE FROM board_tbl
 	WHERE BD_NUM = #{bd_num}
-</delete>
-
+</delete> -->
+	
 </mapper>

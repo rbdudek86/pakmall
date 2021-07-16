@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pakmall.domain.BoardVO;
-import com.pakmall.domain.PagingVO;
 import com.pakmall.dto.Criteria;
 import com.pakmall.mapper.BoardMapper;
 
@@ -22,6 +21,12 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> getBoardList(Criteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return boardMapper.getBoardList(cri);
+	}
+	
+	@Override
+	public int getTotalCountList(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return boardMapper.getTotalCountList(cri);
 	}
 
 	@Override
@@ -48,11 +53,8 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.board_delete(bd_num);
 	}
 
-	@Override
-	public int getTotalCountList(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return boardMapper.getTotalCountList(cri);
-	}
+	
+	
 
 
 }

@@ -8,18 +8,18 @@
 <!--  nav.jsp -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
 
+<title>Register</title>
+
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-lg-12">
 			<div class="card">
 				<div class="card-header">회원가입</div>
 					<div class="card-body">
-					<form class="form-horizontal" id="joinForm" action="/member/join" method="post" style="padding:100px 50px">
+					<form class="form-horizontal" id="joinForm" action="/member/join" method="post" style="padding:50px 50px">
 						<fieldset>
-						<!-- Form Name -->
-						<legend>회원가입</legend>
 
-						<!-- Text input-->
+						<!-- ID -->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="inputId">아이디</label>
 							<div class="col-md">
@@ -31,7 +31,7 @@
 							</div>
 						</div>
 
-						<!-- Password input-->
+						<!-- 비밀번호 -->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="passwordinput">비밀번호</label>
 							<div class="col-md">
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 
-						<!-- Password input-->
+						<!-- 비밀번호 확인 -->
 						<div class="form-group">
 							<label class="col-md-6 control-label" for="confirm_password">비밀번호 확인</label>
 							<div class="col-md">
@@ -50,22 +50,6 @@
 
 							</div>
 						</div>
-						
-						<!-- Multiple Radios (inline) -->
-						<!--
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="gender">성별</label>
-							<div class="col-md">
-								<label class="radio-inline" for="gender-0"> <input
-									type="radio" name="gender" id="gender-0" value="Male"
-									checked="checked"> 남자
-								</label> <label class="radio-inline" for="gender-1"> <input
-									type="radio" name="gender" id="gender-1" value="Female">
-									여자
-								</label>
-							</div>
-						</div>
-						-->
 						
 						<!-- 이름 -->
 						<div class="form-group">
@@ -80,12 +64,12 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label"  for="address">주소</label>
 							<div class="col-md">
-								<input type="text" id="memb_zip" name="memb_zip"placeholder="우편번호">
+								<input type="text" id="memb_zip" name="memb_zip" placeholder="우편번호">
 								<input type="button" onclick="sample2_execDaumPostcode()"
 									value="우편번호 찾기"><br> 
-								<input type="text" id="memb_addr1" name="memb_addr1" placeholder="주소"><br> 
-								<input type="text" id="memb_addr2" name="memb_addr2" placeholder="상세주소">
-								<input type="hidden" id="sample2_extraAddress" placeholder="참고항목">
+								<input type="text" id="memb_addr1" name="memb_addr1" placeholder="주소" class="form-control input-md"> 
+								<input type="text" id="memb_addr2" name="memb_addr2" placeholder="상세주소" class="form-control input-md">
+								<input type="hidden" id="sample2_extraAddress" placeholder="참고항목" class="form-control input-md">
 							</div>
 							<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
 							<div id="layer"
@@ -128,29 +112,12 @@
 							</div>
 						</div>
 
-						<!-- Prepended checkbox -->
-						<!--
-						<div class="form-group">
-							<label class="col-md-6 control-label" for="check_critiria">Check
-								the box</label>
-							<div class="col-md">
-								<div class="input-group">
-									<span class="input-group-addon"> <input type="checkbox">
-									</span> <input id="check_critiria" name="check_critiria"
-										class="form-control" type="text"
-										placeholder="I accept the criteria" required="">
-								</div>
-
-							</div>
-						</div>
-						-->
-
 						<!-- Button -->
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="submit"></label>
 							<div class="col-md">
-								<button id="btn_submit" name="btn_submit" class="btn btn-primary">회원가입</button>
-								<button id="btn_cancel" name="btn_cancel" class="btn btn-secondary">취소</button>
+								<button type="button" id="btn_submit" name="btn_submit" class="btn btn-primary">회원가입</button>
+								<button type="button" id="btn_cancel" name="btn_cancel" class="btn btn-secondary">취소</button>
 							</div>
 						</div>
 					</fieldset>

@@ -3,7 +3,6 @@ package com.pakmall.mapper;
 import java.util.List;
 
 import com.pakmall.domain.BoardVO;
-import com.pakmall.domain.PagingVO;
 import com.pakmall.dto.Criteria;
 
 public interface BoardMapper {
@@ -21,5 +20,7 @@ public interface BoardMapper {
 	public void board_update(BoardVO vo) throws Exception;
 	
 	public int board_delete(long bd_num) throws Exception;
+	
+	
 	
 }

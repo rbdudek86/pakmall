@@ -35,13 +35,13 @@
 				<trim prefix="OR" >
 					<choose>
 						<when test="type == 'N'.toString()" >
-							pdt_name like '%' || #{keyword} || '%'
+							odr_code like '%' || #{keyword} || '%'
 						</when>
 						<when test="type == 'D'.toString()" >
-							pdt_detail like '%' || #{keyword} || '%'
+							mem_id like '%' || #{keyword} || '%'
 						</when>
 						<when test="type == 'C'.toString()" >
-							pdt_company like '%' || #{keyword} || '%'
+							odr_name like '%' || #{keyword} || '%'
 						</when>
 					</choose>
 				</trim>
@@ -58,9 +58,9 @@
 	    	from order_tbl 
 	    where odr_code > 0 and rownum > 0 and 
 	 	]]> 
-	 	<!-- 
+	 	
 	 	<include refid="criteria"></include>
-	 	 -->
+	 	 
 	 	 <![CDATA[   	
 	    	rownum <= #{pageNum} * #{amount}
 	    )
@@ -73,9 +73,7 @@
 	<select id="getTotalCountOrder" resultType="int" >
 		select count(*) from order_tbl where 
 		
-		<!-- 
 		<include refid="criteria"></include>
-		 -->
 		 
 		<![CDATA[
 		odr_code > 0

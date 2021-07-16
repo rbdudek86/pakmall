@@ -10,13 +10,11 @@
 
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-6">
+		<div class="col-lg-10">
 			<div class="card">
-				<form class="form-horizontal" id="updateForm" action="/member/pw_update" method="post" style="padding:100px">
+				<div class="card-header">비밀번호 변경</div>
+				<form class="form-horizontal" id="updateForm" action="/member/pw_update" method="post" style="padding:50px">
 					<fieldset>
-
-						<!-- Form Name -->
-						<legend>비밀번호 변경</legend>
 
 						<!-- 기존 비밀번호 -->
 						<div class="form-group">
@@ -60,7 +58,7 @@
 
 					</fieldset>
 				</form>
-				
+			
 			</div>
 		</div>
 	</div>

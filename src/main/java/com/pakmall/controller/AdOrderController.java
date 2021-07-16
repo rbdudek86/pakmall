@@ -68,6 +68,7 @@ public class AdOrderController {
 			entity = new ResponseEntity<List<OrderDetailListVO>>(orderService.order_detail_list(odr_code), HttpStatus.OK);
 		}catch(Exception e) {
 			entity = new ResponseEntity<List<OrderDetailListVO>>(HttpStatus.BAD_REQUEST);
+			
 		}
 		return entity;
 	}

@@ -1,16 +1,12 @@
 package com.pakmall.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@ToString
-@Setter
-@Getter
+@Data
 public class Criteria {
 	
-	private int pageNum; // 페이지번호. 1  2  3  4  5
-	private int amount; // 페이지마다 출력될 게시물개수(예 10개)
+	private int pageNum; // 현재 페이지 // 페이지번호. 1  2  3  4  5
+	private int amount; // 정한 수(상수) // 페이지당 글 개 수(예5)
 	
 	// 검색종류 
 	// 검색방법? 
@@ -22,8 +18,10 @@ public class Criteria {
 	private String mem_id;
 	private	String memb_id;
 	
+	private long bd_num; // 댓글 페이징
+	
 	public Criteria() {
-		this(1, 5);
+		this(1, 10);
 	}
 
 	public Criteria(int pageNum, int amount) {

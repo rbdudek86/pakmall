@@ -20,7 +20,7 @@
         <a class="nav-link" href="/member/login">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/member/join">Register</a>
+        <a class="nav-link" href="/member/join">Join</a>
       </li>
       </c:if>
       <!-- 인증 후 표시 -->
@@ -39,11 +39,24 @@
        <li class="nav-item">
         <a class="nav-link" href="/cart/cart_list">CartList</a>
       </li>
+      <li class="nav-item dropdown">
+	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MyPage</a>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" href="/member/modify">회원정보 수정</a>
+	      <a class="dropdown-item" href="/member/pw_update">비밀번호 변경</a>
+	      <div class="dropdown-divider"></div>
+	      <button type="button" id="btn_member_delete" class="dropdown-item">회원탈퇴</button>
+	    </div>
+	  </li>
+	  <li class="nav-item dropdown">
+	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">주문내역/배송조회</a>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" href="/member/order/order_list">주문내역</a>
+	      <a class="dropdown-item" href="#">배송조회</a>
+	     
+	    </div>
+	  </li>
       </c:if>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="/member/my_info">MyPage</a>
-      </li>
       
       <li class="nav-item">
         <a class="nav-link" href="/board/board_list">Board</a>
@@ -68,5 +81,22 @@
 	  </div>
 	</nav>
 
+<script>
+$(document).ready(function(){
+	$("#btn_member_delete").on("click",function(){
+
+		var result = confirm("정말 탈퇴하시겠습니까?");
+		
+		if(result){
+			location.href="/member/delete";
+		}else{
+			location.href="/"
+		}
+		
+	});
+		
+	
+});
+</script>
 
     

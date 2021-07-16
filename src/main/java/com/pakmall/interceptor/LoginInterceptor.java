@@ -35,7 +35,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			@Nullable ModelAndView modelAndView) throws Exception {
 		/*
 		MemberVO vo = new MemberVO();
-		modelAndView.setViewName("member");
+		modelAndView.setViewName("member")
 		modelAndView.addObject("MemberVO", vo);
 		*/
 

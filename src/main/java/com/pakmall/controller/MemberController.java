@@ -55,15 +55,15 @@ public class MemberController {
 	@PostMapping(value = "/loginPost")
 	public void login_ok(LoginDTO dto, RedirectAttributes rttr, HttpSession session, Model model) throws Exception {
 
-		MemberVO vo = service.login_ok(dto);
+		MemberVO vo = service.login_ok(dto); // DB에서 정보 가져오기
 		System.out.println("LoginDTO에 담겨있는 정보 ======== " + vo);
 		
 		if(vo == null) return;
-
+		
 		String result = "loginIDFail";
-
+		
+		
 		if(vo != null) {
-
 			
 			if(cryPassEnc.matches(dto.getMemb_pw(), vo.getMemb_pw())){
 				// vo.setMemb_pw(""); 비밀번호 보안처리
@@ -77,13 +77,12 @@ public class MemberController {
 				result = "loginSuccess";
 			}else {
 				result = "loginPWFail";
-				return;
 			}
 		}
 
 		rttr.addFlashAttribute("status", result);
-
-		//return "redirect:/"; // main.jsp 실행
+		
+		// return "redirect:/"; // main.jsp 실행
 
 	}
 
@@ -95,7 +94,7 @@ public class MemberController {
 
 		session.invalidate();
 
-		rttr.addFlashAttribute("status", "");
+		rttr.addFlashAttribute("status", "logout");
 
 		return "redirect:/";
 
@@ -282,36 +281,36 @@ public class MemberController {
 
 
 	// 비밀번호 찾기기능(ajax적용)
-	@ResponseBody
-	@PostMapping("/find_pwd")
-	public ResponseEntity<String> find_pwd(@RequestParam("memb_id") String memb_id, @RequestParam("memb_name") String memb_name, EmailDTO dto ) throws Exception {
-
-		log.info("아이디? " + memb_id);
-		log.info("이름? " + memb_name);
-
-
-		ResponseEntity<String> entity = null;
-
-		MemberVO vo = service.find_pwd(memb_id, memb_name);
-
-
-		if(vo != null) {
-
-			// 메일발송작업
-			dto.setReceiveMail(vo.getMemb_email());
-			dto.setSubject("요청하신 비밀번호입니다.");
-			dto.setMessage(memb_id + " 님의 비밀번호입니다.");
-
-			mailService.sendMail(dto, vo.getMemb_pw());
-
-
-			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-		}else {
-			entity = new ResponseEntity<String>(HttpStatus.OK);
-		}
-
-		return entity;
-	}
+//	@ResponseBody
+//	@PostMapping("/find_pwd")
+//	public ResponseEntity<String> find_pwd(@RequestParam("memb_id") String memb_id, @RequestParam("memb_name") String memb_name, EmailDTO dto ) throws Exception {
+//
+//		log.info("아이디? " + memb_id);
+//		log.info("이름? " + memb_name);
+//
+//
+//		ResponseEntity<String> entity = null;
+//
+//		MemberVO vo = service.find_pwd(memb_id, memb_name);
+//
+//
+//		if(vo != null) {
+//
+//			// 메일발송작업
+//			dto.setReceiveMail(vo.getMemb_email());
+//			dto.setSubject("요청하신 비밀번호입니다.");
+//			dto.setMessage(memb_id + " 님의 비밀번호입니다.");
+//
+//			mailService.sendMail(dto, vo.getMemb_pw());
+//
+//
+//			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+//		}else {
+//			entity = new ResponseEntity<String>(HttpStatus.OK);
+//		}
+//
+//		return entity;
+//	}
 	
 	// 비밀번호찾기 폼(암호화)
 	@GetMapping("/pw_search")
@@ -368,12 +367,6 @@ public class MemberController {
 		}
 
 		return entity;
-		
-	}
-	
-	//마이페이지 폼
-	@GetMapping("/my_info")
-	public void my_info() {
 		
 	}
 	

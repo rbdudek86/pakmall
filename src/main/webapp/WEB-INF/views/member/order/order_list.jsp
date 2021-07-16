@@ -5,16 +5,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
 <html>
 <head>
 <!-- css file -->
-<%@include file="/WEB-INF/views/admin/include/head_inc.jsp" %>
 <script src="/ckeditor/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<%@include file="/WEB-INF/views/common/config.jsp"%>
+<!-- nav.jsp -->
+	<%@include file="/WEB-INF/views/common/nav.jsp"%>
 
 </head>
 
@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			<div class="row" >
 				<div class="col-lg-12">
-					<form id="searchForm" action="/member/order/order_list" method="get">
+					<form id="searchForm" action="/member/order/order_list" method="get" style="padding:60px 30px">
 						<select name="type" id="type">
 							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected':'' }" />>--</option>
 							<option value="N" <c:out value="${pageMaker.cri.type == 'N' ? 'selected':'' }" />>상품명</option>
@@ -146,8 +146,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 			</section>
 			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->
 			<%@include file="/WEB-INF/views/common/footer.jsp"%>
@@ -167,39 +165,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<div class="tab-content">
 				<!-- Home tab content -->
 				<div class="tab-pane active" id="control-sidebar-home-tab">
-					<h3 class="control-sidebar-heading">Recent Activity</h3>
 					<ul class="control-sidebar-menu">
 						<li>
 							<a href="javascript:;"> <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-								<div class="menu-info">
-									<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-									<p>Will be 23 on April 24th</p>
-								</div>
 							</a>
 						</li>
 					</ul>
-					<!-- /.control-sidebar-menu -->
-
-					<h3 class="control-sidebar-heading">Tasks Progress</h3>
-					<ul class="control-sidebar-menu">
-						<li>
-							<a href="javascript:;">
-								<h4 class="control-sidebar-subheading">
-									Custom Template Design
-									<span class="pull-right-container">
-										<span class="label label-danger pull-right">70%</span>
-									</span>
-								</h4>
-
-								<div class="progress progress-xxs">
-									<div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<!-- /.control-sidebar-menu -->
 
 				</div>
 				<!-- /.tab-pane -->
@@ -229,17 +201,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		<!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
 		<div class="control-sidebar-bg"></div>
-	</div>
-	<!-- ./wrapper -->
 
 	<!-- REQUIRED JS SCRIPTS -->
 
 	<%@include file="/WEB-INF/views/admin/include/scripts.jsp" %>
 
-	<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
-     
 <script>
 // 주문상세 ajax작업 
 $(document).ready(function(){

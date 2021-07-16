@@ -38,7 +38,7 @@
     </style>
 
 </head>
-<body>
+<body style="padding:50px 40px">
 	
 	<div style="position: relative;">	
 	<!-- nav.jsp -->
@@ -50,7 +50,6 @@
 			<div class="col-lg-12">
 				<form id="searchForm" action="/board/board_list" method="get">
 					<select style="width:170px; height:38px" name="type" id="type">
-						<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected':'' }" />>--</option>
 						<option value="T" <c:out value="${pageMaker.cri.type == 'T' ? 'selected':'' }" />>제목</option>
 						<option value="C" <c:out value="${pageMaker.cri.type == 'C' ? 'selected':'' }" />>내용</option>
 						<option value="W" <c:out value="${pageMaker.cri.type == 'W' ? 'selected':'' }" />>작성자</option>
@@ -62,23 +61,28 @@
 					<input type="hidden" name="pageNum" value="${ pageMaker.cri.pageNum}">
 					<input type="hidden" name="amount" value="${ pageMaker.cri.amount}">
 					<button style="height:38px;" id="btnSearch" type="button" class="btn btn-primary">검색</button>
+					<button style="height:38px;" id="btnList" type="button" class="btn btn-primary">목록</button>
 					<!-- Criteria로 보냄 -->
 					
 				</form>
 			</div>
 		</div>
+
 		
-		<div class="col-12">
+		<div class="col-lg-12">
 			<form action="/board/board_register" method="get" >
 				<div class="panel-heading text-right">
 					<button id="btn_board_register" type="submit" class="btn btn-primary pull-right">글쓰기</button><br>
 				</div>
 			</form>
+			<br>
+			<!-- 게시판 리스트 테이블 -->
 			<table class="table table-striped">
 				<thead>
 				    <tr>
 				      <th scope="col" style="text-align: center;" class="col-1">글번호</th>
-				      <th scope="col" style="text-align: center;" class="col-7">제목</th>
+				      <th scope="col" style="text-align: center;" class="col-6">제목</th>
+				      <th scope="col" style="text-align: center;" class="col-1">댓글</th>
 				      <th scope="col" style="text-align: center;" class="col-2">작성자</th>
 				      <th scope="col" style="text-align: center;" class="col-2">작성일</th>
 				    </tr>
@@ -91,14 +95,38 @@
 				  	</tr>
 				  	</c:if>
 				  	<c:forEach items="${boardList}" var="list">
+				  	<c:choose>
+			  		<c:when test="${list.bd_show == 'y'}">
+			  		<!-- 삭제상태가 아닐때 -->
 					<tr onclick="javascript:fn_detail('${list.bd_num}');" style="cursor:pointer;">
 						<td style="text-align: center;"><c:out value="${total - (list.rn - 1)}"></c:out></td>
-						<td><c:out value="${list.bd_title}"></c:out></td>
+						<td align="left">
+		                    <c:if test="${list.bd_layer > 0}">
+		                        <c:forEach begin="1" end="${list.bd_layer}">
+		                            &nbsp;&nbsp;&nbsp; <!-- 답변글일경우 글 제목 앞에 공백을 준다. -->
+		                        </c:forEach> 
+		                        RE : 
+		                    </c:if>
+		                 	<c:out value="${list.bd_title}"/>
+		                </td>
+		                <td style="text-align: center;">[ <c:out value="${list.bd_re_count}"/> ]</td>
 						<td style="text-align: center;"><c:out value="${list.mem_id}"></c:out></td>
 						<td style="text-align: center;"><fmt:formatDate pattern="yy/MM/dd" value="${list.bd_date_reg}"/></td>
 					</tr>
+					</c:when>
+					<c:otherwise>
+					<!-- 삭제상태일때 -->
+						<tr>
+							<td style="text-align: center;"><c:out value="${total - (list.rn - 1)}"></c:out></td>
+							<td style="color: silver;"> 삭제된 게시글 입니다.</td>
+							<td style="text-align: center; color: silver"> - </td>
+							<td style="text-align: center; color: silver"> - </td>
+							<td style="text-align: center; color: silver"> - </td>
+						</tr>
+					</c:otherwise>
+					</c:choose>
 					</c:forEach>
-
+			
 				</tbody>
 			</table>
 		</div>
@@ -140,40 +168,40 @@
 		</div>
 		-->
 		
-		 <!-- 페이징 표시 -->
-		    <div class="row">
-		    	<div class="col-lg-12">
-		    			<div class="panel-footer">
-		    			   <ul class="pagination">
-		    			   <c:if test="${pageMaker.prev }">
-							    <li class="page-item">
-							      <a href="${pageMaker.startPage - 1 }" class="page-link" href="#" tabindex="-1">Prev</a>
-							    </li>
-						    </c:if>
-						    <c:forEach begin="${pageMaker.startPage }" end="${ pageMaker.endPage}" var="num">
-						    	<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""}">
-						    		<a href="${num }" class="page-link" href="#">${num }</a>
-						    	</li>
-						    </c:forEach>
-						    <c:if test="${pageMaker.next }">
-							    <li class="page-item">
-							      <a href="${pageMaker.endPage + 1 }" class="page-link" href="#">Next</a>
-							    </li>
-						    </c:if>
-						  </ul>
-				
-			    				<hr>
-	    			</div>
-		    	</div>
-		    </div>
+		<!-- 페이징 표시 -->
+		 <div class="row">
+		 	<div class="col-lg-12">
+		 			<div class="panel-footer">
+		 			   <ul class="pagination">
+		 			   <c:if test="${pageMaker.prev }">
+				    <li class="page-item">
+				      <a href="${pageMaker.startPage - 1 }" class="page-link" href="#" tabindex="-1">Prev</a>
+				    </li>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage }" end="${ pageMaker.endPage}" var="num">
+			    	<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""}">
+			    		<a href="${num }" class="page-link" href="#">${num }</a>
+			    	</li>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next }">
+				    <li class="page-item">
+				      <a href="${pageMaker.endPage + 1 }" class="page-link" href="#">Next</a>
+				    </li>
+			    </c:if>
+			  </ul>
+		
+		  				<hr>
+				</div>
+		 	</div>
+		 </div>
 		     
-	    <!-- 페이지번호클릭시, 수정클릭시, 삭제클릭시 상품코드정보 추가 -->
-		    <form id="actionForm" action="/board/board_list" method="get">
-				<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }" />'>
-				<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount }" />'>
-				<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type }" />'>
-				<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword }" />'>
-			</form>
+		 <!-- 페이지번호클릭시, 수정클릭시, 삭제클릭시 상품코드정보 추가 -->
+		 <form id="actionForm" action="/board/board_list" method="get">
+			<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }" />'>
+			<input type="hidden" name="amount" value='<c:out value="${pageMaker.cri.amount }" />'>
+			<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type }" />'>
+			<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword }" />'>
+		</form>
 		
 	
 	</main>
@@ -188,6 +216,23 @@
 	}
 	-->
 </script>
+<!-- <script>
+	$(document).ready(function(){
+		
+		alert();
+		var bd_layer = $("#")
+		
+		if(bd_layer > 0){
+            for(var b=0; b<bd_layer; b++){
+                
+                str += "&nbsp;&nbsp;&nbsp;";
+            }
+            str += "└>";
+		$("#reply").html(str);
+        }
+		
+	});
+</script> -->
 
 <script>
 function fn_detail(bd_num) {
@@ -214,7 +259,7 @@ $(document).ready(function(){
 
 		console.log("click");
 
-		actionForm.find("input[name='pageNum']").val($(this).attr("href"));			
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		actionForm.submit();
 
 	});
@@ -222,7 +267,7 @@ $(document).ready(function(){
 	// 검색버튼 클릭 
 	var searchForm = $("#searchForm");
 
-	$("#searchForm #btnSearch").on("click", function(e){
+	$("#btnSearch").on("click", function(e){
 		if(!searchForm.find("option:selected").val()){
 			alert("검색종류를 선택하세요");
 			return false;
@@ -237,6 +282,12 @@ $(document).ready(function(){
 
 		searchForm.submit();
 
+	});
+	
+	// 목록버튼 클릭
+	$("#btnList").on("click",function(){
+		
+		location.href = "/board/board_list";
 	});
 });
 </script>

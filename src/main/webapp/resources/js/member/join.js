@@ -50,7 +50,7 @@ $(document).ready(function() {
 	$("#btn_sendAuthCode").on("click", function(){
 		var receiveMail = $("#memb_email").val();
 		
-		if($("#memb_email").val()=="" || $("#memb_email").val()== null){
+		if(receiveMail == "" || receiveMail == null){
 			// 메시지를 alert()   사용하지않고, 임의의 위치에 출력하는 형태
 			$("#authcode_status").html("이메일을 먼저 입력해주세요.");
 			return;

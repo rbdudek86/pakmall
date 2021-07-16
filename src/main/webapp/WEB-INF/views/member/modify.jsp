@@ -8,15 +8,14 @@
 <!--  nav.jsp -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
 
+
 <div class="container">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-xl-12">
 			<div class="card">
-				<form class="form-horizontal" id="modifyForm" action="/member/modify" method="post" style="padding:100px">
+				<div class="card-header">회원수정</div>
+				<form class="form-horizontal" id="modifyForm" action="/member/modify" method="post" style="padding:30px">
 					<fieldset>
-
-						<!-- Form Name -->
-						<legend>회원수정</legend>
 
 						<!-- ID -->
 						<div class="form-group">
@@ -56,8 +55,8 @@
 								<input type="text" id="memb_zip" name="memb_zip" placeholder="우편번호" value="<c:out value="${vo.memb_zip}"/>">
 								<input type="button" onclick="sample2_execDaumPostcode()"
 									value="우편번호 찾기"><br> 
-								<input type="text" id="memb_addr1" name="memb_addr1" placeholder="주소" value="<c:out value="${vo.memb_addr1}"/>"><br> 
-								<input type="text" id="memb_addr2" name="memb_addr2" placeholder="상세주소" value="<c:out value="${vo.memb_addr2}"/>">
+								<input type="text" id="memb_addr1" name="memb_addr1" placeholder="주소" value="<c:out value="${vo.memb_addr1}"/>"class="form-control input-md"> 
+								<input type="text" id="memb_addr2" name="memb_addr2" placeholder="상세주소" value="<c:out value="${vo.memb_addr2}"/>"class="form-control input-md">
 								<input type="hidden" id="sample2_extraAddress" placeholder="참고항목">
 							</div>
 							<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
